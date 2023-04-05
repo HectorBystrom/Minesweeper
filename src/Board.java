@@ -4,8 +4,7 @@ public class Board extends JPanel {
     //Attributes
 
     //Constructor
-    public Board(Window window){
-
+    public Board(){
     }
     //Methods
 
