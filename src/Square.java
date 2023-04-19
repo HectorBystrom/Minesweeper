@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -8,14 +9,32 @@ public class Square extends JPanel implements MouseListener {
     //Constructor
     public Square(Window window){
         myWindow = window;
-
+        this.setBorder(BorderFactory.createLineBorder(Color.GREEN,2));
+        this.addMouseListener(this);
+        this.setPreferredSize(new Dimension(1920,1080));
     }
     //Methods
 
+
+public void drawFlag(Graphics g){
+    g.setColor(Color.red);
+
+
+    g.drawLine(50,10,50,40);
+        g.drawLine(50,10,30,25);
+        g.drawLine(30,25,50,25);
+
+}
     //Getters and setters
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        if(e.getButton()==MouseEvent.BUTTON1){
+            this.setBackground(Color.green);
+            repaint();
+        }
+        else if(e.getButton()==MouseEvent.BUTTON3){
+            drawFlag(getGraphics());
+        }
     }
 
     @Override
