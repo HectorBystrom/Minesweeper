@@ -1,8 +1,10 @@
-public class Bomb  {
+public class Bomb extends Square{
     //Attributes
-//extends square
+    int bombAmount = 25;
     //Constructor
-
+    public Bomb(Window window) {
+        super(window);
+    }
     //Methods
 
     //Getters and setters

@@ -11,7 +11,9 @@ public class Square extends JPanel implements MouseListener {
         myWindow = window;
         this.setBorder(BorderFactory.createLineBorder(Color.GREEN,2));
         this.addMouseListener(this);
-        this.setPreferredSize(new Dimension(1920,1080));
+        this.setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()));
+        this.setBackground(Color.black);
+
     }
     //Methods
 
