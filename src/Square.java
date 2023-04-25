@@ -31,8 +31,13 @@ public void drawFlag(Graphics g){
     @Override
     public void mouseClicked(MouseEvent e) {
         if(e.getButton()==MouseEvent.BUTTON1){
-            this.setBackground(Color.green);
-            repaint();
+            if(!isMine) {
+                this.setBackground(Color.green);
+                repaint();
+            }
+            else{
+                this.setBackground(Color.red);
+            }
         }
         else if(e.getButton()==MouseEvent.BUTTON3){
             drawFlag(getGraphics());
