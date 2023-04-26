@@ -46,7 +46,7 @@ public class Square extends JPanel implements MouseListener {
             }
         } else if (e.getButton() == MouseEvent.BUTTON3) {
             if (this.isCovered) {
-                if (this.isClicked == true) {
+                if (this.isClicked) {
                     setBackground(Color.black);
                     this.isClicked = false;
                     repaint();
