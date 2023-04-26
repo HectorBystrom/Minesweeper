@@ -13,7 +13,8 @@ public class Window extends JFrame implements ActionListener {
         addButtFunc();
 
     }
-    public void addButtFunc(){
+
+    public void addButtFunc() {
         JPanel jPanel = new JPanel();
 
         JButton button1 = new JButton("Difficult");
