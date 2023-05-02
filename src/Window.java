@@ -5,7 +5,8 @@ import java.awt.event.ActionListener;
 
 public class Window extends JFrame implements ActionListener {
     //Attributes
-
+    int myX = 1;
+    int myY = 1;
     //Constructor
     public Window() {
         this.setTitle("Minesweeper");
@@ -46,11 +47,19 @@ public class Window extends JFrame implements ActionListener {
         jPanel.setBorder(BorderFactory.createLineBorder(Color.GREEN, 1));
         for (int i = 0; i <= 224; i++) {
             jPanel.add(new Square(this));
+            if(myX<=15) {
+                myX++;
+            }
+            else {
+                myX = 1;
+                myY++;
+            }
 
         }
         this.getContentPane().add(jPanel);
         this.pack();
         this.setVisible(true);
+
     }
 
     public void easy() {
@@ -68,4 +77,16 @@ public class Window extends JFrame implements ActionListener {
     }
 
     //Getters and setters
+
+    public int getMyX() {
+        return myX;
+    }
+
+
+
+    public int getMyY() {
+        return myY;
+    }
+
+
 }
