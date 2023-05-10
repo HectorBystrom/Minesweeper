@@ -5,6 +5,7 @@ public class Board extends JPanel {
 
     //Constructor
     public Board(){
+        
     }
     //Methods
 

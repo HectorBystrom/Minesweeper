@@ -7,6 +7,7 @@ public class Window extends JFrame implements ActionListener {
     //Attributes
     int myX = 1;
     int myY = 1;
+
     //Constructor
     public Window() {
         this.setTitle("Minesweeper");
@@ -45,48 +46,41 @@ public class Window extends JFrame implements ActionListener {
         GridLayout layout = new GridLayout(15, 15);
         jPanel.setLayout(layout);
         jPanel.setBorder(BorderFactory.createLineBorder(Color.GREEN, 1));
-        for (int i = 0; i <= 224; i++) {
-            jPanel.add(new Square(this));
-            if(myX<=15) {
-                myX++;
+        for (int i = 1; i <= 15; i++) {
+            for (int j = 1; j <= 15; j++) {
+                jPanel.add(new Square(this, i, j));
             }
-            else {
-                myX = 1;
-                myY++;
-            }
+        }
+            this.getContentPane().add(jPanel);
+            this.pack();
+            this.setVisible(true);
 
         }
-        this.getContentPane().add(jPanel);
-        this.pack();
-        this.setVisible(true);
 
-    }
 
     public void easy() {
         JPanel jPanel = new JPanel();
         GridLayout layout = new GridLayout(8, 8);
         jPanel.setLayout(layout);
         jPanel.setBorder(BorderFactory.createLineBorder(Color.GREEN, 1));
-        for (int i = 0; i <= 63; i++) {
-            jPanel.add(new Square(this));
-
+        for (int i = 1; i <= 8; i++) {
+            for (int j = 1; j <= 8; j++) {
+                jPanel.add(new Square(this, i, j));
+            }
         }
         this.getContentPane().add(jPanel);
         this.pack();
         this.setVisible(true);
     }
 
+
     //Getters and setters
 
-    public int getMyX() {
-        return myX;
+    public void setMyX(int myX) {
+        this.myX = myX;
     }
 
-
-
-    public int getMyY() {
-        return myY;
+    public void setMyY(int myY) {
+        this.myY = myY;
     }
-
-
 }

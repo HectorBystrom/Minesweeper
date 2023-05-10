@@ -7,17 +7,22 @@ public class Square extends JPanel implements MouseListener {
     //Attributes
     boolean isClicked = false;
     boolean isCovered = true;
-
+    int x;
+    int y;
     Window myWindow;
 
+
     //Constructor
-    public Square(Window window) {
+    public Square(Window window, int x, int y) {
         myWindow = window;
         this.setBorder(BorderFactory.createLineBorder(Color.GREEN, 2));
         this.addMouseListener(this);
         this.setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()));
         this.setBackground(Color.black);
-
+        this.x = x;
+        this.y = y;
+        window.setMyX(x);
+        window.setMyY(y);
     }
     //Methods
 
@@ -36,6 +41,7 @@ public class Square extends JPanel implements MouseListener {
     //Getters and setters
     @Override
     public void mouseClicked(MouseEvent e) {
+        System.out.println(y + " " + x);
         Bomb bomb = new Bomb(myWindow);
         if (e.getButton() == MouseEvent.BUTTON1) {
             if (!bomb.isMine) {
@@ -44,7 +50,6 @@ public class Square extends JPanel implements MouseListener {
                     isCovered = false;
                     isClicked = true;
                     repaint();
-
                 }
             } else {
                 if (!this.isClicked) {
@@ -55,6 +60,7 @@ public class Square extends JPanel implements MouseListener {
         } else if (e.getButton() == MouseEvent.BUTTON3) {
             if (this.isCovered) {
                 if (this.isClicked) {
+
                     setBackground(Color.black);
                     this.isClicked = false;
                     repaint();
@@ -64,6 +70,7 @@ public class Square extends JPanel implements MouseListener {
                 }
             }
         }
+
     }
 
     @Override
