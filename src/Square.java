@@ -41,23 +41,15 @@ public class Square extends JPanel implements MouseListener {
     //Getters and setters
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println(y + " " + x);
-        Bomb bomb = new Bomb(myWindow);
-        if (e.getButton() == MouseEvent.BUTTON1) {
-            if (!bomb.isMine) {
-                if (!this.isClicked) {
-                    this.setBackground(Color.green);
-                    isCovered = false;
-                    isClicked = true;
-                    repaint();
-                }
-            } else {
-                if (!this.isClicked) {
-                    this.setBackground(Color.red);
-                    isClicked = true;
-                }
-            }
-        } else if (e.getButton() == MouseEvent.BUTTON3) {
+
+        System.out.println(getSurroundingMinesCount(myWindow));
+
+        this.setBackground(Color.green);
+        isCovered = false;
+        isClicked = true;
+        repaint();
+
+        if (e.getButton() == MouseEvent.BUTTON3) {
             if (this.isCovered) {
                 if (this.isClicked) {
 
@@ -70,7 +62,22 @@ public class Square extends JPanel implements MouseListener {
                 }
             }
         }
+    }
 
+    public int getSurroundingMinesCount(Window window) {
+        int surroundingMineCount = 0;
+        for (int offsetX = -1; offsetX <= 1; offsetX++) {
+            for (int offsetY = -1; offsetY <= 1; offsetY++) {
+                boolean isBomb = window.isBombAt(x + offsetX, y + offsetY);
+                if (!isBomb) {
+                    continue;
+                }
+
+                surroundingMineCount++;
+            }
+        }
+
+        return surroundingMineCount;
     }
 
     @Override
