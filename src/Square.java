@@ -9,7 +9,7 @@ public class Square extends JPanel implements MouseListener {
     boolean isCovered = true;
     int x;
     int y;
-    Window myWindow;
+    Window myWindow; //Create a new window
 
 
     //Constructor
@@ -23,48 +23,64 @@ public class Square extends JPanel implements MouseListener {
         this.y = y;
         window.setMyX(x);
         window.setMyY(y);
+
+
     }
     //Methods
 
 
-    public void drawFlag(Graphics g) {
+    public void drawFlag(Graphics g) { //Draw the flag and flag amount
         g.setColor(Color.red);
 
 
         g.drawLine(50, 10, 50, 40);
         g.drawLine(50, 10, 30, 25);
         g.drawLine(30, 25, 50, 25);
+        g.drawString("Flags: " + myWindow.getFlagAmount(), 80, 80);
 
+    }
 
+    private void drawNumber(Graphics g) { //Draw how many bombs there are nearby
+        g.setColor(Color.magenta);
+        g.setFont(g.getFont().deriveFont(50f));
+
+        g.drawString(String.valueOf(getSurroundingMinesCount(myWindow)), 65, 60);
     }
 
     //Getters and setters
     @Override
     public void mouseClicked(MouseEvent e) {
-
-        System.out.println(getSurroundingMinesCount(myWindow));
-
-        this.setBackground(Color.green);
-        isCovered = false;
-        isClicked = true;
-        repaint();
-
-        if (e.getButton() == MouseEvent.BUTTON3) {
+        if (e.getButton() == MouseEvent.BUTTON1) {
+            if (!isClicked) {
+                System.out.println(getSurroundingMinesCount(myWindow));
+                drawNumber(getGraphics()); //If its not a bomb when u left click
+                isCovered = false;
+                isClicked = true;
+            }
+        }
+        if (e.getButton() == MouseEvent.BUTTON3) { //Draw flag and check flag amount
             if (this.isCovered) {
                 if (this.isClicked) {
 
                     setBackground(Color.black);
                     this.isClicked = false;
+                    myWindow.setFlagAmount(myWindow.getFlagAmount() + 1);
                     repaint();
+                    System.out.println("Flag amount: " + myWindow.getFlagAmount());
                 } else {
-                    drawFlag(getGraphics());
-                    this.isClicked = true;
+                    if (myWindow.getFlagAmount() > 0) {
+                        drawFlag(getGraphics());
+                        this.isClicked = true;
+                        myWindow.setFlagAmount(myWindow.getFlagAmount() - 1);
+                        System.out.println("Flag amount: " + myWindow.getFlagAmount());
+
+                    }
                 }
             }
         }
     }
 
-    public int getSurroundingMinesCount(Window window) {
+    public int getSurroundingMinesCount(Window window) { //Check how many bombs there are nearby every safe square
         int surroundingMineCount = 0;
         for (int offsetX = -1; offsetX <= 1; offsetX++) {
             for (int offsetY = -1; offsetY <= 1; offsetY++) {

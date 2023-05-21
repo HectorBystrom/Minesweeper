@@ -7,7 +7,7 @@ public class Window extends JFrame implements ActionListener {
     //Attributes
     int myX = 1;
     int myY = 1;
-
+    int flagAmount = 0;
     Square[][] squares;
 
     //Constructor
@@ -15,12 +15,11 @@ public class Window extends JFrame implements ActionListener {
         this.setTitle("Minesweeper");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         addButtFunc();
-
     }
-
+    //Methods
+    //To create 2 buttons from difficult and easy and add so they work.
     public void addButtFunc() {
         JPanel jPanel = new JPanel();
-
         JButton button1 = new JButton("Difficult");
         JButton button2 = new JButton("Easy");
         jPanel.add(button1);
@@ -32,9 +31,7 @@ public class Window extends JFrame implements ActionListener {
         button1.addActionListener(this);
         button2.addActionListener(this);
     }
-
-    //Methods
-
+    //Method that explains what the buttons are gonna do
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Difficult")) {
             difficult();
@@ -43,23 +40,38 @@ public class Window extends JFrame implements ActionListener {
         }
     }
 
+    //Method that explains everything in the difficult version of the game.
     public void difficult() {
         JPanel jPanel = new JPanel();
-        Bomb bomb = new Bomb(this, myX, myY);
         GridLayout layout = new GridLayout(15, 15);
         jPanel.setLayout(layout);
         jPanel.setBorder(BorderFactory.createLineBorder(Color.GREEN, 1));
+        //Create 2D array to list x and y in order to count nearby bombs.
+        squares = new Square[15][15];
+        //Create 15x15 board
         for (int i = 1; i <= 15; i++) {
             for (int j = 1; j <= 15; j++) {
-
-                if (bomb.isMine) {
-                    jPanel.add(new Bomb(this, i, j));
-                } else {
-                    jPanel.add(new Square(this, i, j));
+                boolean shouldBeBomb = false; //Checks if theres a bomb in order to create the board knowingly where the bombs are
+                double x = Math.random();
+                int z = (int) (x * 100);
+                if (z < 30) { //30% bombs.
+                    shouldBeBomb = true;
+                    flagAmount++;
                 }
+
+                Square newBomb;
+                if (shouldBeBomb) {
+                    newBomb = new Bomb(this, i, j); //Create the bombs
+                } else {
+                    newBomb = new Square(this, i, j); //Create the squares
+
+                }
+                squares[i - 1][j - 1] = newBomb; //Change the 2D array to look for bombs around
+                jPanel.add(newBomb);
             }
         }
-        this.getContentPane().add(jPanel);
+
+        this.getContentPane().add(jPanel); //Create the board
         this.pack();
         this.setVisible(true);
 
@@ -72,7 +84,6 @@ public class Window extends JFrame implements ActionListener {
         jPanel.setLayout(layout);
         jPanel.setBorder(BorderFactory.createLineBorder(Color.GREEN, 1));
         squares = new Square[8][8];
-
         for (int i = 1; i <= 8; i++) {
             for (int j = 1; j <= 8; j++) {
                 boolean shouldBeBomb = false;
@@ -80,6 +91,7 @@ public class Window extends JFrame implements ActionListener {
                 int z = (int) (x * 100);
                 if (z < 30) {
                     shouldBeBomb = true;
+                    flagAmount++;
                 }
 
                 Square newBomb;
@@ -87,6 +99,7 @@ public class Window extends JFrame implements ActionListener {
                     newBomb = new Bomb(this, i, j);
                 } else {
                     newBomb = new Square(this, i, j);
+
                 }
                 squares[i - 1][j - 1] = newBomb;
                 jPanel.add(newBomb);
@@ -97,11 +110,12 @@ public class Window extends JFrame implements ActionListener {
         this.pack();
         this.setVisible(true);
     }
-    public Square[][] getSquares() {
+
+    public Square[][] getSquares() { //getter for square
         return squares;
     }
 
-    public boolean isBombAt(int x, int y) {
+    public boolean isBombAt(int x, int y) { //Method to check if its a bomb or not
         boolean isBomb = false;
         Square[][] squares = this.getSquares();
 
@@ -110,7 +124,7 @@ public class Window extends JFrame implements ActionListener {
             Square square = squares[x - 1][y - 1];
 
 
-            isBomb = square instanceof Bomb;
+            isBomb = square instanceof Bomb; //Checking instances of bomb
         } catch (Exception ignored) {
         }
         return isBomb;
@@ -125,4 +139,15 @@ public class Window extends JFrame implements ActionListener {
     public void setMyY(int myY) {
         this.myY = myY;
     }
+
+    public int getFlagAmount() {
+        return flagAmount;
+    }
+
+    public void setFlagAmount(int flagAmount) {
+        this.flagAmount = flagAmount;
+    }
+
+
+
 }
