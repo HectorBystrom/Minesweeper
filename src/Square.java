@@ -26,7 +26,6 @@ public class Square extends JPanel implements MouseListener {
     }
     //Methods
 
-
     public void drawFlag(Graphics g) { //Draw the flag and flag amount
         g.setColor(Color.red);
         int x1 = 0, y1 = 0, y2 = 0, x3 = 0, y3 = 0, xx = 0, yy = 0;
@@ -69,10 +68,10 @@ public class Square extends JPanel implements MouseListener {
 
     }
 
-    //Getters and setters
     @Override
     public void mouseClicked(MouseEvent e) {
         win();
+
         if (e.getButton() == MouseEvent.BUTTON1) {
             if (!isClicked) {
                 System.out.println(getSurroundingMinesCount(myWindow));
@@ -100,14 +99,14 @@ public class Square extends JPanel implements MouseListener {
         return surroundingMineCount;
     }
 
-    public void win() {
+    public void win() { //Method for winning: NOTE it is not finished as u just win when u place the flags here
         if (myWindow.getFlagAmount() == 0) {
             System.out.println("You won! ");
             myWindow.dispose();
             new Window();
         }
     }
-    public void flag() {
+    public void flag() { //Making the flag and flag amount.
         if (this.isCovered) {
             if (this.isClicked) {
                 setBackground(Color.black);

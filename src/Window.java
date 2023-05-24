@@ -64,7 +64,7 @@ public class Window extends JFrame implements ActionListener {
         boolean isBomb = false;
         Square[][] squares = this.getSquares();
         try {
-            Square square = squares[x - 1][y - 1];
+            Square square = squares[x - 1][y - 1]; //Finds the square at these x and y coordinates
             isBomb = square instanceof Bomb; //Checking instances of bomb
         } catch (Exception ignored) {
         }

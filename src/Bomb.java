@@ -24,9 +24,11 @@ public class Bomb extends Square {
             loose();
         }
         if (e.getButton() == MouseEvent.BUTTON3) { //Draw the flag
+
             flag();
         }
     }
+
     public void loose() { // exit when u loose or restart
         System.out.println("you have lost! ");
         myWindow.dispose();
